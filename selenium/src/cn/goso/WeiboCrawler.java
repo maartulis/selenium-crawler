@@ -34,13 +34,13 @@ public class WeiboCrawler {
 		wbcrawler.WeiboInit();
 		// wbcrawler.crawlWeibobyScrolling();
 		wbcrawler.getMingRenWeibo();
-		// wbcrawler.crawlWeiboPro("ÎÒÊÇºØÖ¾Ã÷");
+		// wbcrawler.crawlWeiboPro("æˆ‘æ˜¯è´ºå¿—æ˜");
 
 	}
 
 	private void getMingRenWeibo() throws IOException {
 
-		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("D:\\My Project\\wobousernameTOP2000.txt"), "UTF-8"));
+		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("/home/rmss/microblog/sina/data/wobousernameTOP2000"), "UTF-8"));
 		if (br != null) {
 			String data = null;
 			int i = 0;
@@ -50,7 +50,7 @@ public class WeiboCrawler {
 				System.out.println(data);
 				i++;
 
-				// »ñÈ¡
+				// ï¿½ï¿½È¡
 				try {
 					crawlWeiboPro(data);
 				} catch (InterruptedException e) {
@@ -85,7 +85,7 @@ public class WeiboCrawler {
 		// TODO Auto-generated method stub
 
 		// selenium.open("");
-		selenium.open("http://t.sina.com.cn/n/¹ù¾´Ã÷");
+		selenium.open("http://t.sina.com.cn/n/æˆ‘æ˜¯è´ºå¿—æ˜");
 		// selenium.refresh();
 		selenium.waitForPageToLoad("300000");
 
@@ -135,13 +135,13 @@ public class WeiboCrawler {
 		// selenium.refresh();
 
 		try {
-			// ²É¼¯µÚÒ»Ò³
+			// ç¬¬ä¸€é¡µ
 			getWeiboContent(selenium.getHtmlSource(), weiboUsername);
 
-			// ²É¼¯µÚ¶şÒ³
+			// ç¬¬äºŒé¡µ
 			System.out.println("Xpath number:" + selenium.getXpathCount("//div[@id='profileFeed']/div/div/a/em"));
 			if (0 == selenium.getXpathCount("//div[@id='profileFeed']/div/div/a/em").intValue()) {
-				System.out.println("Ã»ÓĞÁ´½Ó£¡");
+				System.out.println("æ²¡æœ‰é“¾æ¥ï¼");
 			} else {
 
 				selenium.click("//div[@id='profileFeed']/div/div/a/em");
@@ -164,7 +164,7 @@ public class WeiboCrawler {
 				System.out.println("Xpath number:" + selenium.getXpathCount("//div[@id='profileFeed']/div/div/a[8]/em"));
 				try {
 					if (1 != selenium.getXpathCount("//div[@id='profileFeed']/div/div/a[8]/em").intValue()) {
-						System.out.println("Ã²ËÆÒÑ¾­Ã»ÓĞÁË£¡");
+						System.out.println("There is no weibo anymore");
 						break;
 					} else {
 						selenium.click("//div[@id='profileFeed']/div/div/a[8]/em");
@@ -184,7 +184,7 @@ public class WeiboCrawler {
 						break;
 					}
 					Thread.sleep(2000);
-					System.out.println("ĞİÏ¢2Ãë");
+					System.out.println("ä¼‘æ¯2ç§’");
 				}
 			}
 
@@ -192,7 +192,7 @@ public class WeiboCrawler {
 			e.printStackTrace();
 		}
 
-		FileOperator.writeFile("D:\\My Project\\wobo_" + weiboUsername + ".txt", strb.toString());
+		FileOperator.writeFile("/home/rmss/microblog/sina/data/weiboContent/weibo_" + weiboUsername + "", strb.toString());
 		strb = new StringBuffer();
 		// selenium.close();
 
@@ -205,7 +205,7 @@ public class WeiboCrawler {
 		selenium.waitForPageToLoad("300000");
 
 		try {
-			// ²É¼¯µÚÒ»Ò³
+			//ç¬¬ä¸€é¡µ
 			getWeiboContent(selenium.getHtmlSource(), weiboUsername);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -215,13 +215,13 @@ public class WeiboCrawler {
 		int i = 0, numoftrying = 0;
 		boolean isOver = false;
 		while (!isOver) {
-			System.out.println("Xpath number:" + selenium.getXpathCount("//EM[(text()='ÏÂÒ»Ò³')]"));
+			System.out.println("Xpath number:" + selenium.getXpathCount("//EM[(text()='ä¸‹ä¸€é¡µ')]"));
 			try {
-				// ÅĞ¶ÏÏÂÒ»Ò³°´Å¥³öÏÖÃ»ÓĞ£¬³öÏÖºóÔÙ½øĞĞÏÂÃæ£¬Ê®ÃëºóËµÃ÷Ã»ÓĞÏÂÒ»Ò³°´Å¥
+				//åˆ¤æ–­æœ‰æ— 
 				numoftrying = 0;
-				while (selenium.getXpathCount("//EM[(text()='ÏÂÒ»Ò³')]").intValue() < 1) {
-					if (numoftrying++ > 5 || (selenium.getXpathCount("//EM[(text()='ÉÏÒ»Ò³')]").intValue() > 0 &&
-							selenium.getXpathCount("//EM[(text()='ÏÂÒ»Ò³')]").intValue() < 1)
+				while (selenium.getXpathCount("//EM[(text()='ä¸‹ä¸€é¡µ')]").intValue() < 1) {
+					if (numoftrying++ > 5 || (selenium.getXpathCount("//EM[(text()='ä¸Šä¸€é¡µ')]").intValue() > 0 &&
+							selenium.getXpathCount("//EM[(text()='ä¸‹ä¸€é¡µ')]").intValue() < 1)
 							) {
 						isOver = true;
 						break;
@@ -230,12 +230,12 @@ public class WeiboCrawler {
 						selenium.refresh();
 					}
 					Thread.sleep(2000);
-					System.out.println("ĞİÏ¢2Ãë");
+					System.out.println("ä¼‘æ¯2ç§’");
 				}
 				if (!isOver) {
-					selenium.click("//EM[(text()='ÏÂÒ»Ò³')]");
+					selenium.click("//EM[(text()='ä¸‹ä¸€é¡µ')]");
 					// selenium.waitForPageToLoad("300000");
-					Thread.sleep(1000);
+					Thread.sleep(2000);
 
 					getWeiboContent(selenium.getHtmlSource(), weiboUsername);
 
@@ -249,7 +249,7 @@ public class WeiboCrawler {
 
 		}
 
-		FileOperator.writeFile("D:\\My Project\\wobo_" + weiboUsername + ".txt", strb.toString());
+		FileOperator.writeFile("/home/rmss/microblog/sina/data/weiboContent/weibo_" + weiboUsername + "", strb.toString());
 		strb = new StringBuffer();
 		TotalNum = 0;
 		// selenium.close();
@@ -271,13 +271,13 @@ public class WeiboCrawler {
 		NodeList products = null;
 		try {
 			products = XPathAPI.selectNodeList(doc, productsXpath);
-			System.out.println("\nÎ¢²©Êı: " + products.getLength());
+			System.out.println("\nå¾®åšæ•°: " + products.getLength());
 			Node node = null;
 			for (int i = 0; i < products.getLength(); i++) {
 				node = products.item(i);
 				if (0 == i)
-					System.out.println("µÚ¡¡" + TotalNum + "¡¡ÌõÎ¢²©" + ":¡¡" + node.getTextContent());
-				strb.append(username + "µÄµÚ¡¡" + TotalNum++ + "¡¡ÌõÎ¢²©" + ":¡¡" + node.getTextContent() + "\r\n");
+					System.out.println("ç¬¬" + TotalNum + "å¾®åš" + ":" + node.getTextContent());
+				strb.append(username + " " + TotalNum++ +  ": " + node.getTextContent() + "\r\n");
 			}
 		} catch (TransformerException e) {
 			e.printStackTrace();
